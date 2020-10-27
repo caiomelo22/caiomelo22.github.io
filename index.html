@@ -129,10 +129,17 @@
 
 		async function checaLucro () {
 			console.log(window);
-			var val = window.apostas.methods.checaLucro().call().then((val) => {
-				document.getElementById("valorLucro").value = val;
-				console.log(val);
-			});
+			try
+			{
+				var val = window.apostas.methods.checaLucro().call().then((val) => {
+					document.getElementById("valorLucro").value = val;
+					console.log(val);
+				});
+			}
+			catch(err)
+			{
+				console.log(err);
+			}
 		};
 
 		async function retirarLucro () {
