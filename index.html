@@ -131,7 +131,7 @@
 			console.log(window);
 			try
 			{
-				var val = window.apostas.methods.checaLucro().call().then((val) => {
+				var val = window.apostas.methods.checaLucro().call({from:window.coinbase}).then((val) => {
 					document.getElementById("valorLucro").value = val;
 					console.log(val);
 				});
