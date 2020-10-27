@@ -5,106 +5,87 @@
 	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.0/web3.min.js"></script> -->
 	<script type="text/javascript">
-		const contract_address = "0x73d4bb686aae92f6dc99DD24ad39A1103E8c1ef0";
+		const contract_address = "0x7b91950951cE57fF4AaB93Dd954e8d9752724842";
 
 		const contract_abi = [
-		{
-			"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_valor",
-				"type": "uint256"
-			}
-			],
-			"stateMutability": "nonpayable",
-			"type": "constructor"
-		},
-		{
-			"stateMutability": "nonpayable",
-			"type": "fallback"
-		},
-		{
-			"inputs": [],
-			"name": "checaLucro",
-			"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_gols_time_A",
-				"type": "uint256"
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_gols_time_A",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_gols_time_B",
+						"type": "uint256"
+					}
+				],
+				"name": "defineResultado",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_gols_time_B",
-				"type": "uint256"
-			}
-			],
-			"name": "defineResultado",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "getValorAposta",
-			"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_gols_time_A",
-				"type": "uint256"
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_gols_time_A",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_gols_time_B",
+						"type": "uint256"
+					}
+				],
+				"name": "realizaAposta",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "payable",
+				"type": "function"
 			},
 			{
-				"internalType": "uint256",
-				"name": "_gols_time_B",
-				"type": "uint256"
-			}
-			],
-			"name": "realizaAposta",
-			"outputs": [
+				"inputs": [],
+				"name": "retirarLucro",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			}
-			],
-			"stateMutability": "payable",
-			"type": "function"
-		},
-		{
-			"inputs": [],
-			"name": "retirarLucro",
-			"outputs": [
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"stateMutability": "nonpayable",
+				"type": "fallback"
+			},
+			{
+				"inputs": [],
+				"name": "checaLucro",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
-			],
-			"stateMutability": "nonpayable",
-			"type": "function"
-		}
-		];
+		]
 
 		const ethEnabled = () => {
 			if (window.ethereum) {
@@ -119,13 +100,13 @@
 			window.coinbase = await window.web3.eth.getCoinbase();
 		};
 
-		async function getValorAposta () {
+		/*async function getValorAposta () {
 			console.log(window);
 			var val = window.apostas.methods.getValorAposta().call().then((val) => {
 				document.getElementById("valorAposta").value = val;
 				console.log(val);
 			});
-		};
+		};*/
 
 		async function checaLucro () {
 			console.log(window);
@@ -195,11 +176,11 @@
 	</div>
 	<br>
 	<div>
-		<div class="col-md-6">
+		<!--div class="col-md-6">
 			<button id="checkValorAposta" onclick="getValorAposta()">Checar valor da aposta</button>
 			<input type="number" name="valorAposta" id="valorAposta">
 		</div>
-		<br>
+		<br-->
 		<div class="col-md-6">
 			<button id="checkLucro" onclick="checaLucro()">Checar lucro (caso tenha apostado)</button>
 			<input type="number" name="valorLucro" id="valorLucro">
