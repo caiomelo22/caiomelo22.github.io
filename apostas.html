@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simples Aposta</title>
+	<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.0/web3.min.js"></script> -->
+	<script type="text/javascript">
+		const contract_address = "0x1d27d008a50Da9cAef8dadf0a3eB3C9Dde9105cD";
+
+		const contract_abi = [
+		{
+			"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_valor",
+				"type": "uint256"
+			}
+			],
+			"stateMutability": "nonpayable",
+			"type": "constructor"
+		},
+		{
+			"stateMutability": "nonpayable",
+			"type": "fallback"
+		},
+		{
+			"inputs": [],
+			"name": "checaLucro",
+			"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_gols_time_A",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_gols_time_B",
+				"type": "uint256"
+			}
+			],
+			"name": "defineResultado",
+			"outputs": [],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "getValorAposta",
+			"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_gols_time_A",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_gols_time_B",
+				"type": "uint256"
+			}
+			],
+			"name": "realizaAposta",
+			"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+			],
+			"stateMutability": "payable",
+			"type": "function"
+		},
+		{
+			"inputs": [],
+			"name": "retirarLucro",
+			"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+			],
+			"stateMutability": "nonpayable",
+			"type": "function"
+		}
+		];
+
+		const ethEnabled = () => {
+			if (window.ethereum) {
+				window.web3 = new Web3(window.ethereum);
+				window.ethereum.enable();
+				return true;
+			}
+			return false;
+		}
+
+		async function saveCoinbase () {
+			window.coinbase = await window.web3.eth.getCoinbase();
+		};
+
+		async function getValorAposta () {
+			console.log(window);
+			var val = window.apostas.methods.getValorAposta().call();
+			document.getElementById("valorAposta").value = await val;
+		};
+
+		async function checaLucro () {
+			console.log(window);
+			var val = window.apostas.methods.checaLucro().call();
+			document.getElementById("valorLucro").value = await val;
+		};
+
+		async function retirarLucro () {
+			window.apostas.methods.retirarLucro().call({from:window.coinbase});
+		}
+
+		async function realizaAposta () {
+			var golsTimeA = document.getElementById("golsTimeA").value;
+			var golsTimeB = document.getElementById("golsTimeB").value;
+			window.apostas.methods.realizaAposta(golsTimeA, golsTimeB).send(golsTimeA, golsTimeB, {from:window.coinbase});
+		}
+
+		async function defineResultado () {
+			var golsTimeA = document.getElementById("golsTimeA").value;
+			var golsTimeB = document.getElementById("golsTimeB").value;
+			window.apostas.methods.defineResultado(golsTimeA, golsTimeB).send(golsTimeA, golsTimeB, {from:window.coinbase});
+		}
+
+		if (!ethEnabled()) {
+			alert("Metamask or browser with Ethereum not detected!");
+		}
+		else {
+			window.apostas = new web3.eth.Contract(contract_abi, contract_address);
+			saveCoinbase();
+		}
+
+	</script>
+</head>
+<body>
+	<div>
+		<span>Time A</span> 
+		<input type="number" name="golsTimeA" id="golsTimeA">
+		X
+		<input type="number" name="golsTimeB" id="golsTimeB">
+		<span>Time B</span>
+		<button id="btnApostar" onclick="realizaAposta()">Apostar</button>
+		<button id="btnDefinirResultado" onclick="defineResultado()">Definir resultado</button>
+	</div>
+	<br>
+	<div>
+		<div class="col-md-6">
+			<button id="checkValorAposta" onclick="getValorAposta()">Checar valor da aposta</button>
+			<p name="valorAposta" id="valorAposta"></p>
+		</div>
+		<div class="col-md-6">
+			<button id="checkLucro" onclick="checaLucro()">Checar lucro (caso tenha apostado)</button>
+			<p name="valorLucro" id="valorLucro"></p>
+		</div>
+	</div>
+	<div class="justify-center">
+		<button id="retirarLucro" onclick="retirarLucro()">Retirar lucro (caso exista)</button>
+	</div>
+	
+</body>
+</html>
