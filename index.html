@@ -144,7 +144,17 @@
 
 		async function retirarLucro () {
 			console.log("yesirr")
-			window.apostas.methods.retirarLucro().send({from:window.coinbase});
+			try
+			{
+				var val = window.apostas.methods.retirarLucro().send({from:window.coinbase}).then((val) => {
+					document.getElementById("valorLucroTransferido").value = val;
+					console.log(val);
+				});
+			}
+			catch(err)
+			{
+				console.log(err);
+			}
 		}
 
 		async function realizaAposta () {
@@ -201,6 +211,7 @@
 	</div>
 	<div class="justify-center">
 		<button id="retirarLucro" onclick="retirarLucro()">Retirar lucro (caso exista)</button>
+		<input type="number" name="valorLucroTransferido" id="valorLucroTransferido">
 	</div>
 	
 </body>
