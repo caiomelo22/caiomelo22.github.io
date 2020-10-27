@@ -142,13 +142,13 @@
 		async function realizaAposta () {
 			var golsTimeA = document.getElementById("golsTimeA").value;
 			var golsTimeB = document.getElementById("golsTimeB").value;
-			window.apostas.methods.realizaAposta(golsTimeA, golsTimeB).send(golsTimeA, golsTimeB, {from:window.coinbase});
+			window.apostas.methods.realizaAposta(golsTimeA, golsTimeB).send(document.getElementById("valorLucro").value, {from:window.coinbase});
 		}
 
 		async function defineResultado () {
 			var golsTimeA = document.getElementById("golsTimeA").value;
 			var golsTimeB = document.getElementById("golsTimeB").value;
-			window.apostas.methods.defineResultado(golsTimeA, golsTimeB).send(golsTimeA, golsTimeB, {from:window.coinbase});
+			window.apostas.methods.defineResultado(golsTimeA, golsTimeB).send({from:window.coinbase});
 		}
 
 		if (!ethEnabled()) {
