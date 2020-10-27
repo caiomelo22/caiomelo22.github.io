@@ -143,7 +143,7 @@
 		};
 
 		async function retirarLucro () {
-			window.apostas.methods.retirarLucro().call({from:window.coinbase});
+			window.apostas.methods.retirarLucro().send({from:window.coinbase});
 		}
 
 		async function realizaAposta () {
