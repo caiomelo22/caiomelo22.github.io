@@ -146,10 +146,7 @@
 			console.log("yesirr")
 			try
 			{
-				var val = window.apostas.methods.retirarLucro().send({from:window.coinbase}).then((val) => {
-					document.getElementById("valorLucroTransferido").value = val;
-					console.log(val);
-				});
+				var val = window.apostas.methods.retirarLucro().send({from:window.coinbase});
 			}
 			catch(err)
 			{
