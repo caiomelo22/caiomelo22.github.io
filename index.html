@@ -142,7 +142,7 @@
 		async function realizaAposta () {
 			var golsTimeA = document.getElementById("golsTimeA").value;
 			var golsTimeB = document.getElementById("golsTimeB").value;
-			window.apostas.methods.realizaAposta(golsTimeA, golsTimeB).send(document.getElementById("valorLucro").value, {from:window.coinbase});
+			window.apostas.methods.realizaAposta(golsTimeA, golsTimeB).send(5, {from:window.coinbase});
 		}
 
 		async function defineResultado () {
