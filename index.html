@@ -123,7 +123,7 @@
 			console.log(window);
 			var val = window.apostas.methods.getValorAposta().call();
 			document.getElementById("valorAposta").value = await val;
-			console.log("valor",val);
+			console.log("valor",Promise.resolve(val));
 		};
 
 		async function checaLucro () {
