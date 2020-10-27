@@ -140,7 +140,7 @@
 			var golsTimeB = document.getElementById("golsTimeB").value;
 			try
 			{
-				window.apostas.methods.realizaAposta(golsTimeA, golsTimeB).send(window.web3.toWei(1000, "wei"),{from:window.coinbase});
+				window.apostas.methods.realizaAposta(golsTimeA, golsTimeB).send(1000,{from:window.coinbase});
 			}
 			catch(err)
 			{
